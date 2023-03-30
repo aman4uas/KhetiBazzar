@@ -23,7 +23,7 @@ body {
 }
 
 .navbar {
-    background-color: rgba(6,170,94, 1)
+    background-color: rgba(6,170,94, 1);
 }
 
 .content {
@@ -68,5 +68,8 @@ body {
 
 .item {
     width: 80%;
+}
+.white-color{
+    color: white;
 }
 

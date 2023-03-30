@@ -13,7 +13,10 @@ app.get("/", (req, res)=>{
     res.render("landingpage", {year: year})
 })
 app.get("/signup", (req, res)=>{
-    res.render("signup", {year: year})
+    res.render("signup")
+})
+app.get("/login", (req, res)=>{
+    res.render("login")
 })
 
 app.listen(3000, ()=>{

@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login | KhetiBazzar ™</title>
+    <link rel="shortcut icon" href="resources/favicon.ico" type="image/x-icon">
+    <link rel="stylesheet" href="signup_login.css">
+    <script src="signup_login.js" defer></script>
+</head>
+<body>
+    <main class="card-container slideUp-animation">
+        <div class="image-container">
+            <a href="/"><h1 class="company" style="color: white;">KhetiBazzar <sup>&trade;</sup></h1></a>
+            <img style="border-radius: 10px;" src="https://t4.ftcdn.net/jpg/04/45/69/65/360_F_445696583_kN8UnRh8CJVYZJv2Qy6cFyyXnez7qqqD.jpg" class="illustration" alt="">
+            <p class="quote">Hope you enjoy the deals..!</p>
+            <a href="#btm" class="mobile-btm-nav">
+                <img src="resources/dbl-arrow.png" alt="">
+            </a>
+        </div>
+        <form action="" method="">
+            <div class="form-container slideRight-animation">
+    
+                <h1 class="form-header">
+                    Login
+                </h1>
+    
+    
+                <div class="input-container">
+                    <label for="Username">
+                    </label>
+                    <input type="text" name="Username" id="Username" required>
+                    <span>
+                        Username
+                    </span>
+                    <div class="error"></div>
+                </div>
+    
+                <div class="input-container">
+                    <label for="user-password"></label>
+                    <input type="password" name="user-password" id="user-password" class="user-password" value="" required>
+                    <span>Enter Password</span>
+                    <div class="error" id="message"></div>
+                </div>
+
+                <div id="btm">
+                    <button type="submit" class="submit-btn">Login</button>
+                    <p class="btm-text">
+                        Don't have an account..? <a href="/signup"><span class="btm-text-highlighted">  Signup</span></a>
+                    </p>
+                </div>
+            </div>
+        </form>
+    </main>
+</body>
+</html>
