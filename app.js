@@ -12,15 +12,17 @@ const saltRounds = 10
 app.set('view engine', 'ejs')
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(express.static("public"));
-let isAuthenticated = false
 
 /**** Middlewares ENDS ****/
 
 
 
+
+
+
 /******** Database ********/
 
-mongoose.connect("mongodb://localhost:27017/khetiBazzarDB")
+mongoose.connect("mongodb://localhost:27017/khetiBazzarDB").then(()=> console.log("Connected to Database successfully !!")).catch(()=> console.log("Error connecting database !!"))
 
 const userSchema = {
     email: String,
@@ -36,6 +38,19 @@ const User = new mongoose.model("User", userSchema)
 
 
 
+
+
+/******** User Specific Info ********/
+
+let isAuthenticated = false
+let currentUsername = null
+
+/**** User Specific Info ENDS ****/
+
+
+
+
+
 /******** Get API calls for routes ********/
 
 app.get("/", (req, res)=>{
@@ -44,14 +59,11 @@ app.get("/", (req, res)=>{
 })
 
 app.get("/signup", (req, res)=>{
-    res.render("signup")
-})
-app.post("/signup", (req, res)=>{
-    res.send("<h1>Hello</h1>")
+    res.render("signup", {userError: "", passError: ""})
 })
 
 app.get("/login", (req, res)=>{
-    res.render("login")
+    res.render("login", {userError: "", passError: ""})
 })
 
 /**** Get API calls for routes ENDS ****/
@@ -61,31 +73,40 @@ app.get("/login", (req, res)=>{
 /******** Post API calls for routes ********/
 
 app.post("/signup", (req, res)=>{
-    console.log(req.body)
-    /*
-    bcrypt.hash(req.body.password, saltRounds, function(err, hash) {
-        if(err){
-            res.send("<h1>Ooops..Something went wrong !! <br /></h1> <p>Please try again..</p>")
-            console.log(err)
+    User.findOne({email: req.body.username}).then((foundUser)=>{
+        if(req.body.userPassword !== req.body.userPasswordConfirm){
+            res.render("signup", {userError: "", passError: "Passwords did not match !!"})
+        }
+        else if(foundUser===null){
+            bcrypt.hash(req.body.userPassword, saltRounds, function(err, hash) {
+                if(err){
+                    console.log(err)
+                    res.render("error")
+                }
+                else{
+                    const newUser = new User({
+                        email: req.body.username,
+                        password: hash,
+                        firstName: req.body.fName,
+                        lastName: req.body.lName,
+                        profession: req.body.profession
+                    })
+                    newUser.save().then(()=>{
+                        isAuthenticated = true
+                        currentUsername = req.body.username
+                        res.send("<h1>Hello World</h1>")
+                    }).catch((err)=>{
+                        console.log(err)
+                        res.render("error")
+                    })
+                }
+                
+            })
         }
         else{
-            const newUser = new User({
-                email: req.body.username,
-                password: hash,
-                firstName: req.body.fName,
-                lastName: req.body.lName,
-
-            })
-            newUser.save().then(()=>{
-                isAuthenticated = true
-                res.send("<h1>Hello World</h1>")
-            }).catch((err)=>{
-                console.log(err)
-            })
+            res.render("signup", {userError: "Email already taken.."})
         }
-        
     })
-    */
 })
 
 app.post("/login", (req, res)=>{
@@ -93,9 +114,28 @@ app.post("/login", (req, res)=>{
     const password = req.body.password
 
     User.findOne({email: username}).then((foundUser)=>{
-        bcrypt.compare(password, foundUser.password, function(err, result) {
-            if(result === true) res.render("secrets")
-        });
+        if(foundUser===null){
+            res.render("login", {userError: "Email does not exists..", passError: ""})
+        }
+        else{
+            bcrypt.compare(password, foundUser.password, function(err, result) {
+                if(err){
+                    console.log(err)
+                    res.render("error")
+                }
+                else{
+                    if(result === true) {
+                        isAuthenticated = true
+                        currentUsername = req.body.username
+                        res.send("<h1>Logged In </h1>")
+                    }
+                    else {
+                        res.render("login", {passError: "You entered a wrong password.. TRY AGAIN !!", userError: ""})
+                    }
+                }
+            })
+        }
+        
     })
 })
 

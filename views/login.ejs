@@ -30,18 +30,18 @@
                 <div class="input-container">
                     <label for="username">
                     </label>
-                    <input type="text" name="username" id="username" required>
+                    <input type="email" name="username" id="username" required>
                     <span>
                         Email
                     </span>
-                    <div class="error"></div>
+                    <div class="error"><%=userError%></div>
                 </div>
     
                 <div class="input-container">
                     <label for="user-password"></label>
-                    <input type="password" name="user-password" id="user-password" class="user-password" value="" required>
+                    <input type="password" name="password" id="user-password" class="user-password" value="" required>
                     <span>Enter Password</span>
-                    <div class="error" id="message"></div>
+                    <div class="error" id="message"><%=passError%></div>
                 </div>
 
                 <div id="btm">

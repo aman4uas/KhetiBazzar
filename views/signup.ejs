@@ -47,11 +47,11 @@
                 <div class="input-container">
                     <label for="username">
                     </label>
-                    <input type="text" name="username" id="username" required>
+                    <input type="email" name="username" id="username" required>
                     <span>
                         Email
                     </span>
-                    <div class="error"></div>
+                    <div class="error"><%=userError%></div>
                 </div>
     
     
@@ -73,18 +73,18 @@
     
                 <div class="input-container">
                     <label for="user-password"></label>
-                    <input type="password" name="user-password" id="user-password" class="user-password" value="" required>
+                    <input type="password" name="userPassword" id="user-password" class="user-password" value="" required>
                     <span>Password</span>
                     <div class="error" id="message"></div>
                 </div>
 
                 <div class="input-container">
                     <label for="user-password-confirm"></label>
-                    <input type="password" name="user-password-confirm" id="user-password-confirm" class="password-confirmation" value="" required>
+                    <input type="password" name="userPasswordConfirm" id="user-password-confirm" class="password-confirmation" value="" required>
                     <span>
                         Confirm Password
                     </span>
-                    <div class="error error-pass" id="message-con"></div>
+                    <div class="error error-pass" id="message-con"><%=passError%></div>
                 </div>
 
                 <div id="btm">
