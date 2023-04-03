@@ -1,3 +1,4 @@
+require('dotenv').config()
 const express = require("express")
 const app = express()
 const bodyParser = require("body-parser")
@@ -22,7 +23,8 @@ app.use(express.static("public"));
 
 /******** Database ********/
 
-mongoose.connect("mongodb://localhost:27017/khetiBazzarDB").then(()=> console.log("Connected to Database successfully !!")).catch(()=> console.log("Error connecting database !!"))
+//mongoose.connect("mongodb://localhost:27017/khetiBazzarDB").then(()=> console.log("Connected to Database successfully !!")).catch(()=> console.log("Error connecting database !!"))
+mongoose.connect(`mongodb+srv://amanhacks4u:${process.env.DB_PASSWORD}@cluster0.sg6mffa.mongodb.net/?retryWrites=true&w=majority`).then(()=> console.log("Connected to Database successfully !!")).catch(()=> console.log("Error connecting database !!"))
 
 const userSchema = {
     email: String,
