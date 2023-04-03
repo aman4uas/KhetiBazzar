@@ -23,15 +23,16 @@ app.use(express.static("public"));
 
 /******** Database ********/
 
-//mongoose.connect("mongodb://localhost:27017/khetiBazzarDB").then(()=> console.log("Connected to Database successfully !!")).catch(()=> console.log("Error connecting database !!"))
-mongoose.connect(`mongodb+srv://amanhacks4u:${process.env.DB_PASSWORD}@cluster0.sg6mffa.mongodb.net/?retryWrites=true&w=majority`).then(()=> console.log("Connected to Database successfully !!")).catch(()=> console.log("Error connecting database !!"))
+mongoose.connect("mongodb://localhost:27017/khetiBazzarDB").then(()=> console.log("Connected to Local Database successfully !!")).catch(()=> console.log("Error connecting database !!"))
+//mongoose.connect(`mongodb+srv://amanhacks4u:${process.env.DB_PASSWORD}@cluster0.sg6mffa.mongodb.net/khetiBazzarDB`).then(()=> console.log("Connected to Online Database successfully !!")).catch(()=> console.log("Error connecting database !!"))
 
 const userSchema = {
     email: String,
     password: String,
     firstName: String,
     lastName: String,
-    profession: String
+    profession: String,
+    chatrooms: [String]
 }
 const User = new mongoose.model("User", userSchema)
 
